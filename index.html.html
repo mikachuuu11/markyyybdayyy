@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>for mark</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background-color: #F0F0D7;
+      color: #727D73;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      margin-top: 10px;
+      margin-bottom: 40px;
+      font-weight: normal;
+      font-size: 0.75rem;
+      font-style: italic;
+      color: #AAB99A;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, auto);
+      gap: 40px;
+      max-width: 900px;
+      margin-bottom: 100px;
+      position: relative;
+    }
+
+    .box {
+      background-color: #D0DDD0;
+      border-radius: 16px;
+      padding: 40px 30px;
+      font-size: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+      width: 260px;
+      height: 260px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+    }
+
+    .center-box {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: 300px;
+      height: 300px;
+      font-size: 1.4rem;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #F0F0D7;
+      border-radius: 16px;
+      padding: 30px;
+      width: 80%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: scale(0.8) rotateX(-20deg);
+      transition: all 0.4s ease;
+      font-size: 1rem;
+    }
+
+    .modal.show .modal-content {
+      opacity: 1;
+      transform: scale(1) rotateX(0);
+    }
+
+    .modal.hide .modal-content {
+      opacity: 0;
+      transform: scale(0.8) rotateX(20deg);
+    }
+
+    .close {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .image-block {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .image-block img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>for mark</h1>
+  <h2>letters to my muse, my inspiration, my dearest</h2>
+
+  <div class="grid">
+    <div class="box" onclick="openPoem(0)">💌<br>I Apologize for the Lack of Poetry</div>
+    <div class="box" onclick="openPoem(1)">💌<br> to Little Mark</div>
+    <div class="box center-box" onclick="openPoem(2)">💌<br>Halley's Comet</div>
+    <div class="box" onclick="openPoem(3)">💌<br>STAY (i hope you will)</div>
+    <div class="box" onclick="openPoem(4)">💌<br>deja vu</div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closePoem()">&times;</span>
+      <div id="poemText"></div>
+    </div>
+  </div>
+
+  <script>
+    const poems = [
+      `<div><strong>I Apologize for the Lack of Poetry</strong></div><br>
+       <p>I should’ve written you hundreds by now,</p>
+  <p>rhymed your name through a thousand metaphors—</p>
+  <p>the spark that starts a wildfire,</p>
+  <p>the long-awaited romance arc,</p>
+  <p>your hug, my soul’s landmark,</p>
+  <p>the sunrise blooming after dark.</p>
+  <br>
+  <p>I flipped through old notebooks and found so little,</p>
+  <p>a writer struck dumb by feeling.</p>
+  <p>Maybe it’s because this time,</p>
+  <p>what I feel for you</p>
+  <p>isn’t something even the grandest poem could carry—</p>
+  <p>or maybe I knew,</p>
+  <p>if I ever began,</p>
+  <p>I’d never stop writing about you.</p>
+  <br>
+  <br>
+  <p> 💡 <strong> Fun Fact: </strong> Hypergraphia is an intense and compulsive need </p>
+    <p> to write. It is said that well known writers such as  Isaac Asimov, Fyodor</p>
+    <p> Dostoevsky, and Vincent van Gogh suffered from hypergraphia. </p>
+  
+  `,
+
+      `<div><strong>to little Mark</strong></div><br>
+       <p>I come from the future. I’m choosing not to reveal my identity. Just think of me as a time traveler who knows too many words.</p>
+
+  <p>I wonder what you look like now, and what you used to look like. Is blue still your favorite color? What hairstyle are you sporting? Have you ever tried growing your hair long? Future you prefers it short because of the weather. Can you believe you actually studied Economics at one of the top universities in the country? I bet you never thought you would. What would you say if you heard yourself talking about the unfair taxation between the rich and the poor?</p>
+
+  <p>Do you already like putting ketchup on your food? Have you developed any opinion on Indian food? You don’t like it, huh? What sport are you into? Have you beaten your dad at chess yet, or has he already trained you well?</p>
+
+  <p>A strange thought quietly untangled itself in the cobwebs of my mind: without warning, I started to wonder about you. I wonder about you a lot — like a historian seeking to map out history, an astrologer discovering new galaxies, or a writer who has found their muse. I wonder even more about the you who lives now.</p>
+
+  <p>Sooner or later, as older you continues to unravel himself, I’ll be able to find the answers to these questions. I love listening to him talk about the past — talk about you.</p>
+
+  <p>Still, even if these questions remain unanswered, I know your eyes hold that magnetic twinkle, like the North Star appearing after a day of drizzle in the dark abyss — a glint, often mischievous, mostly curious, the kind you get when something piques your interest. Often I catch glimpses of that in present you. Decades later, you still carry that childlike wonder, and it’s incredibly endearing.</p>
+
+  <p>I don’t know if it’s mine to say, but I’m proud of him. Proud of future you.</p>
+
+  <p>He’s wise — not just smart — with fascinating beliefs and perspectives. He’ll debate fiercely about topics like feminism and gender equality, standing his ground. He picked up the guitar again and sings out of the blue, like a serenade waiting for ears to listen. He’s adventurous. Did you know you’ll travel to Thailand by yourself? You’ll become well-traveled and a human GPS. You’ll star in a short film soon, after enrolling in a drama class, which comes after a hip-hop class. You’ll take plenty of online courses, and play billiards with your boss, nearly beating him.</p>
+
+  <p>He’s kind and respectful — a wonderful grandson who accompanies his grandmother to get her medicine, a patient son to his mother, a great friend who gives sound advice. Watch out for someone named CJ — he’ll be your closest friend.</p>
+
+  <p>He’s a mindfulness guru, always thinking before speaking.</p>
+
+  <p>He’s this and that — an amalgamation of all things good, like a petri dish of everything wonderful personified into one human being. It frustrates me sometimes how he downplays himself. Nowadays, he calls himself an Ordinary Joe. But if he could see himself through the eyes of those who cherish him, he’d know how incredible he is. He’d refute it though, saying he’s just being humble.</p>
+
+  <p>“It is what it is” is a mantra he loves to say — a way to soothe himself. But beneath that stoicism is someone who perseveres. Beneath that calm is a bright young child, full of awe and wonder. Beneath that independence is someone who learned to be strong at a young age. Beneath that strength lingers a softness that remains, despite everything.</p>
+
+  <p>Underneath it all is still you — past, present, and future.</p>
+
+  <p>You’ll meet him soon. You’ll grow into an amazing, incredible man — far beyond what you can imagine.</p>
+
+  <p>I’m excited for you to meet him.</p>
+
+  <p>But even then, I hope you know you’re already enough — as you have been, as you are, as you will be.</p>
+
+  <p>You’re more than enough.</p>`,
+
+      `<div class="image-block">
+        <img src="comet.jpg" alt="Photo before title">
+        <div><strong>Halley's Comet</strong></div><br>
+
+<div>They say those who learn of Halley’s comet are doomed:</div>
+<div>cursed with knowing of its existence,</div>
+<div>but never quite catching sight of it.</div><br>
+
+<div>To be aware, yet never witness.</div><br>
+
+<div>Yet some, defying the will of the skies,</div>
+<div>spend months, years, even decades</div>
+<div>faithfully scanning the endless abyss</div>
+<div>for even a spark of that elusive flame.</div><br>
+
+<div>Still, despite all their pursuit,</div>
+<div>it remains a legend,</div>
+<div>tasted only in dreams and imagination.</div><br>
+
+<div>Then there are the lucky few,</div>
+<div>favored by the universe itself—</div>
+<div>the nonbelievers call it sheer luck,</div>
+<div>the hopeful call it answered prayer:</div>
+<div>for one destined evening, all they had to do</div>
+<div>was to gaze upward into the sky,</div>
+<div>and see in full bloom the celestial fireworks—</div>
+<div>the much-awaited, indistinguishable fiery trail of the cosmic being,</div>
+<div>too beautiful, too rare, too precious—</div><br>
+
+<div>a comet seen once in a lifetime:</div>
+<div>Halley's comet.</div><br>
+
+<div><strong><em>You are my Halley's comet.</em></strong></div>
+<br>
+        <img src="markyyy.jpg" alt="Photo after text">
+      </div>`,
+
+      `<div><strong>STAY</strong> <em>(i hope you will)</em></div><br>
+
+<div><strong>stay</strong></div>
+<div>and let me write you</div>
+<div>a thousand more poems</div>
+<div>I’m yet to immortalize you</div>
+<div>by rhyming your name in metaphors</div>
+<div>until the ink runs dry</div>
+<div>and we’ve run out of space to write</div><br>
+
+<div><strong>stay</strong></div>
+<div>and let’s circumnavigate the world</div>
+<div>purely with our ideas, riddle the town</div>
+<div>with never-ending debates and banter</div>
+<div>color the silence with chatter</div>
+<div>let’s talk until sunrise or sunset</div>
+<div>your choice, for i shall listen to you</div>
+<div>like a deaf man finally</div>
+<div>hearing music for the first time</div><br>
+
+<div><strong>stay</strong></div>
+<div>and we may have more adventures together</div>
+<div>from arcade games and skating rinks</div>
+<div>to chess games that make you think</div>
+<div>i’d love to keep guessing your order at every cafe</div>
+<div>let’s try everything until we’ve run out of choices</div>
+<div>but even then, we could do nothing</div>
+<div>and it will still be enough.</div><br>
+
+<div><strong>stay</strong></div>
+<div>and let me melt into your embrace</div>
+<div>until i’ve penned your smell</div>
+<div>in your arms the world stands still</div>
+<div>and for a moment, it’s just you and me,</div>
+<div>just you and me</div><br>
+
+<div><strong>stay</strong></div>
+<div>and we may continue to grow</div>
+<div>celebrate more wins, milestones, birthdays</div>
+<div>perhaps the could-be, would-be, it’s-been—</div>
+<div>a glimpse into the future finally made into a reality,</div>
+<div>and in the pauses of difficult talks,</div>
+<div>may the universe remind us why—</div>
+<div>despite all nihilism,</div>
+<div>this still matters;</div>
+<div>this will always matter.</div><br>
+
+<div>i know it’s not mine to decide</div>
+<div>but still, i’d say</div><br>
+
+<div>until then,</div>
+<div><em>stay</em></div><br>
+
+<div><em>stay with me.</em></div>
+`,
+
+      `<div><strong>deja vu</strong></div><br>
+
+<div>I have this feeling—that long ago, we were just tiny specks of dust,</div>
+<div>drifting side by side in the vastness as the universe itself was born.</div>
+<div>Over millions of years, those specks wandered the infinite expanse,</div>
+<div>only to find each other again, like an ancient promise fulfilled.</div>
+<div>Or maybe it’s just my overactive imagination weaving stories out of stardust.</div><br>
+
+<div>But it does feel like I've known you for a long time,</div>
+<div>and I'd like to know you for more.</div>
+`
+    ];
+
+    const modal = document.getElementById('modal');
+    const modalContent = modal.querySelector('.modal-content');
+
+    function openPoem(index) {
+      modal.classList.remove('hide');
+      modal.style.display = 'flex';
+      setTimeout(() => modal.classList.add('show'), 10);
+      document.getElementById('poemText').innerHTML = poems[index];
+    }
+
+    function closePoem() {
+      modal.classList.remove('show');
+      modal.classList.add('hide');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 400);
+    }
+  </script>
+</body>
+</html>
+
