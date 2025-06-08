@@ -1,0 +1,31 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore node modules (for Node.js projects)
+node_modules/
+
+# Ignore logs
+*.log
+
+# Ignore environment files
+.env
+
+# Ignore build output
+dist/
+build/
+
+# Ignore IDE/editor folders
+.vscode/
+.idea/
+
+# Ignore OS-specific files
+ehthumbs.db
+Desktop.ini
+
+# Ignore images and backups (optional)
+*.bak
+*.tmp
+
+# Ignore generated HTML/CSS/JS maps
+*.map
